@@ -2,3 +2,4 @@
 **/.venv
 **/frontend/.next
 **/node_modules
+**/build
