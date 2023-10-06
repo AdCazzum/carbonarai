@@ -17,5 +17,6 @@ npm run dev
 ```bash
 cd backend
 pip install -r requirements.txt
+export OPENAI_API_KEY=KEY
 uvicorn app.main:app --reload
 ```
