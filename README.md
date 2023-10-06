@@ -1,19 +1,17 @@
 # Carbonarai
 
-1. Install dependencies
+## Frontend
 
 ```bash
 cd frontend
 npm i
-cd ../backend
-pip install -r requirements.txt
+npm run dev
 ```
 
-2. Run entire app
+## Backend
 
 ```bash
 cd backend
+pip install -r requirements.txt
 uvicorn app.main:app --reload
-cd ../frontend
-npm run dev
 ```
