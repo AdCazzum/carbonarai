@@ -40,6 +40,8 @@ async def chat_handler(request: Request, prompt: prompt):
         agent = OpenAIAgent.from_tools(tool_spec.to_tool_list())
         answer = agent.chat(prompt.query)
 
+        _logger.info({"message": f"Answer is {answer}"})
+        
     except Exception as e:
         print(e)
         _logger.error({"message": "Error generating chat completion"})
