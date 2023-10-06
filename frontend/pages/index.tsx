@@ -10,7 +10,7 @@ export default function Home() {
 
   const [query, setQuery] = useState<string>("");
   const [answer, setAnswer] = useState<string>("");
-  const [sources, setSources] = useState<any[]>([]);
+  // const [sources, setSources] = useState<any[]>([]);
   const [loading, setLoading] = useState<boolean>(false);
 
   const [mode, setMode] = useState<"search" | "answer">("answer");
@@ -19,7 +19,7 @@ export default function Home() {
   const resetQuery = () => {
     setQuery("");
     setAnswer("");
-    setSources([]);
+    // setSources([]);
   }
 
   const handleAnswer = async () => {
@@ -55,7 +55,7 @@ export default function Home() {
     console.log("answer data: ", data);
 
     setAnswer(data.answer);
-    setSources(data.sources);
+    // setSources(data.sources);
 
     inputRef.current?.focus();
   };
@@ -76,17 +76,6 @@ export default function Home() {
   }, [matchCount]);
 
   useEffect(() => {
-    const PG_MATCH_COUNT = localStorage.getItem("PG_MATCH_COUNT");
-    const PG_MODE = localStorage.getItem("PG_MODE");
-
-    if (PG_MATCH_COUNT) {
-      setMatchCount(parseInt(PG_MATCH_COUNT));
-    }
-
-    if (PG_MODE) {
-      setMode(PG_MODE as "search" | "answer");
-    }
-
     inputRef.current?.focus();
   }, []);
 
@@ -196,27 +185,6 @@ export default function Home() {
                 <div className="mt-6 mb-16">
                   <div className="font-bold text-2xl">Discover More</div>
 
-                  {sources.map((source, index) => (
-                    <div key={index}>
-                      <div className="mt-4 border border-zinc-600 rounded-lg p-4">
-                        <div className="flex justify-between">
-                          <div>
-                            {/* <div className="font-bold text-xl">Punteggio: {source.score}</div> */}
-                            <div className="font-bold text-xl">File: {source.node.extra_info.file_name}</div>
-                            {source.node.extra_info.page_label && <div className="mt-1 font-bold text-sm">Page {source.node.extra_info.page_label}</div>}
-                          </div>
-                          <a
-                            className="hover:opacity-50 ml-2"
-                            href={`${process.env.NEXT_PUBLIC_API_BASE_URL}/static/documents/${source.node.extra_info.file_name}`}
-                            target="_blank"
-                            rel="noreferrer"
-                          >
-                            <IconExternalLink />
-                          </a>
-                        </div>
-                      </div>
-                    </div>
-                  ))}
                 </div>
               </div>
             )}

@@ -21,13 +21,7 @@ export const Navbar: FC = () => {
           target="_blank"
           rel="noreferrer"
         >
-          {/* <div className="hidden sm:flex">beatdata.it</div> */}
           <img src={`https://ethrome.org/ethrome_logo.png`} style={{ height: "3rem" }} />
-          {/* 
-          <IconExternalLink
-            className="ml-1"
-            size={20}
-          /> */}
         </a>
       </div>
     </div>
