@@ -3,3 +3,6 @@
 **/frontend/.next
 **/node_modules
 **/build
+**/__pycache__/
+**/.next
+**/node_modules/
