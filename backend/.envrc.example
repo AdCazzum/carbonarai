@@ -1,0 +1,7 @@
+# OpenAI settings
+OPENAI_API_KEY=<key>
+OPENAI_API_TYPE=openai
+OPENAI_API_VERSION=2023-05-15
+OPENAI_API_BASE=https://api.openai.com
+
+
