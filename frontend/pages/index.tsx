@@ -167,25 +167,16 @@ export default function Home() {
                     </div>
                   </>
                 )}
-
-                <div className="font-bold text-2xl mt-6">Discover More</div>
-                <div className="animate-pulse mt-2">
-                  <div className="h-4 bg-gray-300 rounded"></div>
-                  <div className="h-4 bg-gray-300 rounded mt-2"></div>
-                  <div className="h-4 bg-gray-300 rounded mt-2"></div>
-                  <div className="h-4 bg-gray-300 rounded mt-2"></div>
-                  <div className="h-4 bg-gray-300 rounded mt-2"></div>
-                </div>
               </div>
             ) : answer && (
               <div className="mt-6">
                 <div className="font-bold text-2xl mb-2">Response</div>
                 <Answer text={answer} />
 
-                <div className="mt-6 mb-16">
+                {/* <div className="mt-6 mb-16">
                   <div className="font-bold text-2xl">Discover More</div>
 
-                </div>
+                </div> */}
               </div>
             )}
           </div>
