@@ -139,6 +139,8 @@ export default function Home() {
                 4000,
                 'Artificial Intelligence for ENS.',
                 4000,
+                'Artificial Intelligence for Azuro.',
+                4000,
                 'Artificial Intelligence for Web3.',
                 4000,
                 'Artificial Intelligence for ETHRome2023.',
