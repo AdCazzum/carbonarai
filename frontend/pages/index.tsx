@@ -249,10 +249,11 @@ export default function Home() {
             )}
 
             <div className="inline-flex" >
-              <Quadrotto text="ENS" src="/ens.svg" href="https://ens.domains/" />
               <Quadrotto text="The Graph" src="/the-graph.svg" href="https://thegraph.com/" />
               <Quadrotto text="Bittensor" src="/bittensor.svg" href="https://bittensor.com/" />
+              <Quadrotto text="ENS" src="/ens.svg" href="https://ens.domains/" />
               <Quadrotto text="Azuro" src="/azuro.svg" href="https://azuro.org/" />
+              <Quadrotto text="Azuro" src="/cyphers-party.png" href="https://ethereans.mypinata.cloud/ipfs/QmTjmaggkggGJF6gehbkcdJ2LgFZUZve1dpfWiQpe6v2D5/#/guilds/delegations/0x38B45A359cA3855BCdc4Ad76DC616BdF2f58a0f9" />
             </div>
           </div>
         </div>
