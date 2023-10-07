@@ -19,7 +19,7 @@ discord: wonderdnal
 
 tg: wonderdnal
 
-## Andrea Ciceri
+## [Andrea Ciceri](https://github.com/aciceri)
 discord: aciceri
 
 matrix: @aciceri:nixos.dev
