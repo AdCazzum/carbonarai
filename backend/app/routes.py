@@ -8,7 +8,7 @@ from fastapi import Request
 import logging
 from llama_hub.tools.graphql.base import GraphQLToolSpec
 from llama_index.agent import OpenAIAgent
-
+import requests
 
 # openai.api_key = os.environ["OPENAI_API_KEY"]
 
