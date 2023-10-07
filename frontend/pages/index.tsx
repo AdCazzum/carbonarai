@@ -113,7 +113,7 @@ export default function Home() {
                 4000,
                 'Artificial Intelligence for ETHRome2023.',
                 4000,
-                'Artificial Intelligence for BrianKnows.',
+                'Artificial Intelligence for Brian.',
                 4000,
                 'Artificial Intelligence for Ethereum.',
                 4000,
