@@ -37,17 +37,11 @@ async def chat_handler(request: Request, prompt: prompt):
     try:
         if (prompt.chatTypeKey == "ENS"):
             print("!!!!!!!!!!!!!!!!!!!!!!!ENS!!!!!!!!!!!!!!!!!!!!!!!")
-            with open("app/graphql/ens.root.object", "r") as f:
-                q_roots = f.read()
-
             with open("app/graphql/ens.graphql", "r") as f:
                 txt = f.read()
         else:
             print("!!!!!!!!!!!!!!!!!!!!!!!AZURO!!!!!!!!!!!!!!!!!!!!!!!")
-            with open("app/graphql/ens.root.object", "r") as f:
-                q_roots = f.read()
-
-            with open("app/graphql/ens.graphql", "r") as f:
+            with open("app/graphql/azuro.graphql", "r") as f:
                 txt = f.read()
                 
         system_prompt=f"""
