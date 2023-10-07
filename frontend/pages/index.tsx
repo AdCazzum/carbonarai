@@ -20,7 +20,7 @@ export default function Home() {
   const [mode, setMode] = useState<"search" | "answer">("answer");
   const [matchCount, setMatchCount] = useState<number>(5);
 
-  const prompts = ["query the first 3 domains name", "query the ID of taoli.eth", "give me the first domain name and his metadata"];
+  const prompts = ["query the first 3 domains name", "give me a domain list", "give me the first domain name and his metadata"];
 
   const resetQuery = () => {
     setQuery("");
@@ -36,7 +36,7 @@ export default function Home() {
 
     setLoading(true);
 
-    const answerResponse = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/answer`, {
+    const answerResponse = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/bitapai`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json"
