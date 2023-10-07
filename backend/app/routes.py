@@ -9,6 +9,8 @@ import logging
 from llama_hub.tools.graphql.base import GraphQLToolSpec
 from llama_index.agent import OpenAIAgent
 import requests
+import http.client
+import json
 
 # openai.api_key = os.environ["OPENAI_API_KEY"]
 
@@ -23,6 +25,78 @@ tool_spec = GraphQLToolSpec(
       'content-type': 'application/json'
   }
 )
+
+@router.post(
+    "/bitapai",
+    response_model=chat_response,
+    summary="Get response from Bitapai Chat Completion with prompt string and result count",
+    response_description="Answer (string which represents the completion) and sources used",
+)
+async def chat_handler(request: Request, prompt: prompt):
+
+    with open("app/graphql/ens.root.object", "r") as f:
+        q_roots = f.read()
+
+    with open("app/graphql/ens.graphql", "r") as f:
+        txt = f.read()
+
+    system_prompt=f"""
+    Given the following graphql schema:
+    ```
+    {txt}
+    ```
+        
+    Translate the following into a syntactically valid graphql query.
+    Try to not invent new fields, but use the ones already defined in the schema.
+        
+    ```
+    ${prompt}
+    ```
+    """
+
+    print(system_prompt)
+
+    conn = http.client.HTTPSConnection("api.bitapai.io")
+    print('http.client.HTTPSConnection("api.bitapai.io"')
+
+    payload = json.dumps({
+        "messages": [
+            {
+            "role": "system",
+            "content": "You are an AI assistant"
+            },
+            {
+            "role": "user",
+            "content": "What is the meaning of life?"
+            },
+            {
+            "role": "assistant",
+            "content": "42"
+            }
+        ],
+        "count": 1,
+        "return_all": True
+    })
+    headers = {
+        'Content-Type': 'application/json',
+        'X-API-KEY': 'KEY'
+    }
+
+    print("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!")
+
+    conn.request("POST", "/text", payload, headers)
+
+    print("###############################")
+
+    res = conn.getresponse()
+    data = res.read()
+    print(data.decode("utf-8"))
+
+    # Parse the JSON data
+    data = json.loads(data.decode("utf-8"))
+
+    return chat_response(answer=str(data["choices"][0]))
+
 
 @router.post(
     "/answer",
