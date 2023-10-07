@@ -63,15 +63,11 @@ async def chat_handler(request: Request, prompt: prompt):
         "messages": [
             {
             "role": "system",
-            "content": "You are an AI assistant"
+            "content": system_prompt
             },
             {
             "role": "user",
-            "content": "What is the meaning of life?"
-            },
-            {
-            "role": "assistant",
-            "content": "42"
+            "content": str(prompt)
             }
         ],
         "count": 1,
