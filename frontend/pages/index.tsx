@@ -9,6 +9,7 @@ import { TypeAnimation } from "react-type-animation";
 import {
   BeakerIcon
 } from '@heroicons/react/24/outline'
+import SelectMenu from "@/components/SelectMenu/selectMenu";
 
 export default function Home() {
   const inputRef = useRef<HTMLInputElement>(null);
@@ -28,6 +29,30 @@ export default function Home() {
     setAnswer("");
   }
 
+  type SelectItem =
+    | {
+      key: string
+      name: string
+    }
+    | {
+      key: string
+      name: string
+    }
+
+  const CHAT_TYPES: SelectItem[] = [
+    {
+      key: 'ENS',
+      name: 'ENS',
+    },
+    {
+      key: 'Azuro',
+      name: 'Azuro',
+    },
+  ]
+
+  const [chatTypeList, setChatType] = useState<SelectItem[]>(CHAT_TYPES)
+  const [chatTypeKey, chatTypeSetKey] = useState<string>(CHAT_TYPES[0].key)
+
   const handleAnswer = async () => {
     if (!query) {
       return;
@@ -42,7 +67,7 @@ export default function Home() {
       headers: {
         "Content-Type": "application/json"
       },
-      body: JSON.stringify({ query })
+      body: JSON.stringify({ query, chatTypeKey })
     });
 
     if (!answerResponse.ok) {
@@ -126,6 +151,7 @@ export default function Home() {
               repeat={Infinity}
             /></div>
           <div className="mx-auto flex h-90 w-full max-w-6xl flex-col items-center px-3 pt-4 sm:pt-8">
+
             <div className="relative w-full mt-4">
               <IconSearch className="absolute top-3 w-10 left-1 h-6 rounded-full opacity-50 sm:left-3 sm:top-4 sm:h-8" />
 
@@ -153,7 +179,14 @@ export default function Home() {
                 />
               </button>
             </div>
-
+            <SelectMenu
+              label="Query Type"
+              items={chatTypeList}
+              selectedKey={chatTypeKey}
+              onChange={keyValue => {
+                chatTypeSetKey(keyValue)
+              }}
+            />
             {answer ? (
               <></>
             ) : (
@@ -208,10 +241,12 @@ export default function Home() {
                 </div> */}
               </div>
             )}
+
             <div className="inline-flex" >
               <Quadrotto text="ENS" src="/ens.svg" href="https://ens.domains/" />
               <Quadrotto text="The Graph" src="/the-graph.svg" href="https://thegraph.com/" />
               <Quadrotto text="Bittensor" src="/bittensor.svg" href="https://bittensor.com/" />
+              <Quadrotto text="Azuro" src="/azuro.svg" href="https://azuro.org/" />
             </div>
           </div>
         </div>

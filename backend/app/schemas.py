@@ -2,6 +2,7 @@ from pydantic import BaseModel, HttpUrl
 
 class prompt(BaseModel):
     query: str
+    chatTypeKey: str
     # temperature: float | None = 0.00
     # similarity_threshold: float | None = 0.50
     # sentences: str | None = "short"
