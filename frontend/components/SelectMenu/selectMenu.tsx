@@ -66,7 +66,7 @@ export default function SelectMenu(props: MenuProps) {
                                                         selected
                                                             ? "font-semibold"
                                                             : "font-normal",
-                                                        "block truncate"
+                                                        "block"
                                                     )}
                                                 >
                                                     {item.name}
