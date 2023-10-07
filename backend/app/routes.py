@@ -39,11 +39,15 @@ async def chat_handler(request: Request, prompt: prompt):
             print("!!!!!!!!!!!!!!!!!!!!!!!ENS!!!!!!!!!!!!!!!!!!!!!!!")
             with open("app/graphql/ens.graphql", "r") as f:
                 txt = f.read()
-        else:
+        elif (prompt.chatTypeKey == "Azuro"):
             print("!!!!!!!!!!!!!!!!!!!!!!!AZURO!!!!!!!!!!!!!!!!!!!!!!!")
             with open("app/graphql/azuro.graphql", "r") as f:
                 txt = f.read()
-                
+        else:
+            print("!!!!!!!!!!!!!!!!!!!!!!!cypher!!!!!!!!!!!!!!!!!!!!!!!")
+            with open("app/graphql/cypher.graphql", "r") as f:
+                txt = f.read()
+
         system_prompt=f"""
 Given the following graphql schema:
 ```
@@ -113,9 +117,11 @@ Do not return anything else than the code needed for the query execution.
         # URL del servizio GraphQL
         if prompt.chatTypeKey == "ENS":
             url = f'https://api.thegraph.com/subgraphs/name/ensdomains/ens'
-        else:
+        elif prompt.chatTypeKey == "Azuro":
             url = 'https://thegraph.azuro.org/subgraphs/name/azuro-protocol/azuro-api-gnosis-v3'
-            
+        else:
+            url = 'https://api.studio.thegraph.com/query/50149/cypher-party/version/latest'
+
         response = requests.post(url, json={'query': r, 'variables': {}})
 
         print(response.text)

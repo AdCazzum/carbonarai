@@ -48,6 +48,10 @@ export default function Home() {
       key: 'Azuro',
       name: 'Azuro',
     },
+    {
+      key: 'cypher',
+      name: 'Cypher Party',
+    },
   ]
 
   const [chatTypeList, setChatType] = useState<SelectItem[]>(CHAT_TYPES)

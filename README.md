@@ -1,4 +1,4 @@
-# Carbonarai
+# Carbonarai (POC)
 
 [![Netlify Status](https://api.netlify.com/api/v1/badges/3e468748-681a-4f13-b9bd-c59f460675c5/deploy-status)](https://app.netlify.com/sites/melodious-sawine-f52954/deploys)
 
@@ -45,6 +45,9 @@ Bittensor: We used BitAPAI and Bittensor to have an open gateway to an LLM engin
 Interface: We do not integrate Interface but we do have a (User) Interface, and it's simple, clean, and thought to simplify the data access to The Graph to allow everyone to gather info using natural language.
 
 Brian: We do not integrate Brian but we do use LLM, and we think that Brian could leverage tech from CarbonarAI to improve its service!
+
+Cypher Party: Unfortunately EthereansOs do not have a Subgraph yet but we experimented around the protocol and created one for testing purposes! It is committed in the repository and accessible using the below link (test purpose only based on 0x38B45A359cA3855BCdc4Ad76DC616BdF2f58a0f9):
+https://api.studio.thegraph.com/query/50149/cypher-party/version/latest
 
 # The technical stuff that you need to know
 ## Frontend
