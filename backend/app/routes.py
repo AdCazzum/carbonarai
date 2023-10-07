@@ -34,33 +34,122 @@ async def chat_handler(request: Request, prompt: prompt):
     _logger.info({"message": "Calling Chat Endpoint"})
 
     try:
-        _logger.info({"message": "Using Chat Completion"})
-        _logger.info({"message": f"Prompt is {prompt.query}"})
-        
+        # URL del servizio GraphQL
+        url = f'https://api.thegraph.com/subgraphs/name/ensdomains/ens'
+
         with open("app/graphql/ens.root.object", "r") as f:
             q_roots = f.read()
 
-        # FIXME this should be created only one time probablt
-        agent = OpenAIAgent.from_tools(tool_spec.to_tool_list(), 
-        system_prompt=f"""
-            You are a specialized Agent with access to the The Graph API for a blockchain search engine.
-            Your job is to chat with blockchain experts and help them run GraphQL queries, interpreting the results for the user
-            For you conveinence, the QueryRoot objects are listed here.
-            
-            {q_roots}
-            
-            QueryRoots are the schema's entry-point for queries. This acts as the public, top-level API from which all queries must start.
-            You can use graphql_writer to query the schema and assist in writing queries.
-            If the GraphQL you execute returns an error, either directly fix the query, or directly ask the graphql_writer questions about the schema instead of writing graphql queries.
-            Then use that information to write the correct graphql query
-        """)
-        answer = agent.chat(prompt.query)
+        with open("app/graphql/ens.graphql", "r") as f:
+            txt = f.read()
 
-        _logger.info({"message": f"Answer is {answer}"})
-        
+        # Funzione per generare la query GraphQL utilizzando GPT-3.5
+        def generate_graphql_query(p):
+            prompt=f"""
+            Given the following graphql schema:
+            ```
+            {txt}
+            ```
+                
+            Translate the following into a syntactically valid graphql query.
+            Try to not invent new fields, but use the ones already defined in the schema.
+                
+            ```
+            ${p}
+            ```
+            """
+            response = openai.Completion.create(
+                model="gpt-3.5-turbo-instruct",
+                # engine="davinci-002",
+                prompt=prompt,
+                max_tokens=200
+            )
+            return response.choices[0].text.strip().replace("`", "").strip()
+
+        retry = True
+        while retry:
+                
+            # Prompt per generare la query GraphQL
+            # prompt = "Give me the first 3 domains"
+            query = generate_graphql_query(prompt)
+
+            print("------------------")
+            print(query)
+            print("------------------")
+
+            # Parametri della richiesta GraphQL
+            variables = {}
+
+            # Creazione della richiesta POST
+            response = requests.post(url, json={'query': query, 'variables': variables})
+
+            # Verifica della risposta
+            if not response.status_code == 200:
+                data = response.json()
+                print(f'Errore nella richiesta GraphQL: {response.status_code}')
+                print(response.text)
+                retry = True  # Set retry to True to retry the request
+            else:
+                graphql_response = response.json()
+                if "errors" in graphql_response:
+                    print("GraphQL response contains errors. Retrying...")
+                    retry = True
+                else:
+                    retry = False  # Set retry to False to stop retrying
+
+        # Verifica della risposta
+        if not response.status_code == 200:
+            data = response.json()
+            print(f'Errore nella richiesta GraphQL: {response.status_code}')
+            print(response.text)
+            exit(1)
+
+        promptai = f"""
+        You are CarbonarAI, a friendly and helpful AI assistant by developed at EthRome2023 that provides help with interpreting GraphQL responses.
+        You give thorough answers. Use the following pieces of context to help answer the users question. If its not relevant to the question, provide friendly responses.
+        If you cannot answer the question or find relevant meaning in the context, tell the user to try re-phrasing the question. Use the settings below to configure this prompt and your answers.
+
+        <User Query>
+        {prompt}
+
+        <response>
+        ```       
+        {response.text}
+        ```
+        """
+
+        print(promptai)
+
+        retry = True
+        while retry:
+            try:
+                response = openai.Completion.create(
+                        model="gpt-3.5-turbo-instruct",
+                        prompt=promptai,
+                        max_tokens=500
+                    )
+                print(f'!!!!!!!!!!!!!!!!!!!!!!: {response}')
+                retry = False
+
+                # if not response.status_code == 200:
+                #     print(f'Errore nella richiesta GraphQL')
+                #     retry = True  # Set retry to True to retry the request
+                # else:
+                #     print('???????????????? {response}')
+                #     retry = False  # Set retry to False to stop retrying
+            except Exception as e:
+                print(e)
+                retry = True
+                _logger.error({"message": "Error generating chat completion"})
+                raise exceptions.InvalidChatCompletionException
+
+
+        print(response.choices[0].text)
+        print("##########################################################################################")
+
     except Exception as e:
         print(e)
         _logger.error({"message": "Error generating chat completion"})
         raise exceptions.InvalidChatCompletionException
 
-    return chat_response(answer=str(answer))
+    return chat_response(answer=str(response.choices[0].text))
