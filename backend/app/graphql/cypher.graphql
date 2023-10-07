@@ -1,0 +1,29 @@
+type ComponentSet @entity(immutable: true) {
+  id: Bytes!
+  key: Bytes! # bytes32
+  from: Bytes! # address
+  to: Bytes! # address
+  active: Boolean! # bool
+  blockNumber: BigInt!
+  blockTimestamp: BigInt!
+  transactionHash: Bytes!
+}
+
+type Host @entity(immutable: true) {
+  id: Bytes!
+  from: Bytes! # address
+  to: Bytes! # address
+  blockNumber: BigInt!
+  blockTimestamp: BigInt!
+  transactionHash: Bytes!
+}
+
+type Proposed @entity(immutable: true) {
+  id: Bytes!
+  modelIndex: BigInt! # uint256
+  presetIndex: BigInt! # uint256
+  proposalId: Bytes! # bytes32
+  blockNumber: BigInt!
+  blockTimestamp: BigInt!
+  transactionHash: Bytes!
+}
