@@ -12,6 +12,7 @@
     background-image: url(/thegraph.svg);
     text-align: center;
     position: relative;
+    margin-top: 4rem;
 }
 
 .aaa:hover {
