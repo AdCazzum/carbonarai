@@ -45,19 +45,19 @@ async def chat_handler(request: Request, prompt: prompt):
                 txt = f.read()
                 
         system_prompt=f"""
-        Given the following graphql schema:
-        ```
-        {txt}
-        ```
+Given the following graphql schema:
+```
+{txt}
+```
             
-        Translate the following into a syntactically valid graphql query.
-        Try to not invent new fields, but use the ones already defined in the schema.
-        Do not return anything else than the code needed for the query execution.
-            
-        ```
-        ${prompt}
-        ```
-        """
+Translate the following into a syntactically valid graphql query.
+Try to not invent new fields, but use the ones already defined in the schema.
+Do not return anything else than the code needed for the query execution.
+
+```
+{prompt.query}
+```
+"""
 
         print(system_prompt)
 
@@ -193,18 +193,20 @@ async def chat_handler(request: Request, prompt: prompt):
 
         # Funzione per generare la query GraphQL utilizzando GPT-3.5
         def generate_graphql_query(p):
+            print("cddcd")
+            print(p)
             prompt=f"""
-            Given the following graphql schema:
-            ```
-            {txt}
-            ```
+Given the following graphql schema:
+```
+{txt}
+```
                 
-            Translate the following into a syntactically valid graphql query.
-            Try to not invent new fields, but use the ones already defined in the schema.
+Translate the following into a syntactically valid graphql query.
+Try to not invent new fields, but use the ones already defined in the schema.
                 
-            ```
-            ${p}
-            ```
+```
+${p}
+```
             """
             response = openai.Completion.create(
                 model="gpt-3.5-turbo-instruct",
