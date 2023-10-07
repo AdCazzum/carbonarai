@@ -5,6 +5,10 @@ import Head from "next/head";
 import { KeyboardEvent, useEffect, useRef, useState } from "react";
 import { TypeAnimation } from "react-type-animation";
 
+import {
+  BeakerIcon
+} from '@heroicons/react/24/outline'
+
 export default function Home() {
   const inputRef = useRef<HTMLInputElement>(null);
 
@@ -16,10 +20,11 @@ export default function Home() {
   const [mode, setMode] = useState<"search" | "answer">("answer");
   const [matchCount, setMatchCount] = useState<number>(5);
 
+  const prompts = ["query the first 3 domains name", "query the ID of taoli.eth", "give me the first domain name and his metadata"];
+
   const resetQuery = () => {
     setQuery("");
     setAnswer("");
-    // setSources([]);
   }
 
   const handleAnswer = async () => {
@@ -55,7 +60,6 @@ export default function Home() {
     console.log("answer data: ", data);
 
     setAnswer(data.answer);
-    // setSources(data.sources);
 
     inputRef.current?.focus();
   };
@@ -152,6 +156,34 @@ export default function Home() {
                 />
               </button>
             </div>
+
+            {answer ? (
+              <></>
+            ) : (
+              <div className="mt-6 text-center items-center">
+                <>
+                  <div className="flex text-center flex-row items-center mb-3 text-sm">
+                    <BeakerIcon className="w-4 h-4 mr-2"></BeakerIcon>
+                    Try asking something!
+                  </div>
+                  <div className="grid grid-flow-row-dense grid-cols-3 grid-rows-3 place-items-center">
+                    {prompts.map((prompt, pIndex) => {
+                      return (
+                        <div
+                          onClick={() => {
+                            setQuery(prompt)
+                          }}
+                          key={pIndex}
+                          className="text-gray-500 hover:bg-gray-200 hover:text-gray-700 rounded-md cursor-pointer text-xs p-1 text-center transition"
+                        >
+                          <p>{prompt}</p>
+                        </div>
+                      )
+                    })}
+                  </div>
+                </>
+              </div>
+            )}
 
             {loading ? (
               <div className="mt-6 w-full">
