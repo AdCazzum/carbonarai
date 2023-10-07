@@ -1,4 +1,5 @@
 import { Answer } from "@/components/Answer/Answer";
+import { Quadrotto } from "@/components/Quadrotto/Quadrotto";
 import { Navbar } from "@/components/Navbar";
 import { IconArrowBackUp, IconArrowRight, IconExternalLink, IconSearch } from "@tabler/icons-react";
 import Head from "next/head";
@@ -162,8 +163,8 @@ export default function Home() {
             ) : (
               <div className="mt-6 text-center items-center">
                 <>
-                  <div className="flex text-center flex-row items-center mb-3 text-sm">
-                    <BeakerIcon className="w-4 h-4 mr-2"></BeakerIcon>
+                  <div className="inline-flex" >
+                    <BeakerIcon style={{height: "1rem", position: "relative", top: "0.3rem"}}></BeakerIcon>
                     Try asking something!
                   </div>
                   <div className="grid grid-flow-row-dense grid-cols-3 grid-rows-3 place-items-center">
@@ -211,6 +212,11 @@ export default function Home() {
                 </div> */}
               </div>
             )}
+            <div className="inline-flex" >
+	      <Quadrotto text="ENS" src="/ens.svg" href="https://ens.domains/" />
+	      <Quadrotto text="The Graph" src="/the-graph.svg" href="https://thegraph.com/" />
+	      <Quadrotto text="Bittensor" src="/bittensor.svg" href="https://bittensor.com/" />
+            </div>
           </div>
         </div>
       </div>
