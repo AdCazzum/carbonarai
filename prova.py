@@ -16,27 +16,33 @@ with open("backend/app/graphql/ens.graphql", "r") as f:
 # print(txt)
 
 # Funzione per generare la query GraphQL utilizzando GPT-3.5
-def generate_graphql_query(prompt):
+def generate_graphql_query(p):
+    prompt=f"""
+Given the following graphql schema:
+```
+{txt}
+```
+    
+Translate the following into a syntactically valid graphql query.
+Try to not invent new fields, but use the ones already defined in the schema.
+Prefer less precise results over probably failing queries.
+Give me only the query source.
+    
+```
+${p}
+```
+"""
+    print(prompt)
     response = openai.Completion.create(
-        engine="davinci-002",
-        prompt=f"""
-            Given the following graphql schema:
-            ```
-            {txt}
-            ```
-
-            Translate the following into a syntactically valid graphql query. Give me only the query source.
-
-            ```
-            Give me the id of the domain named taoli.eth
-            ```
-        """,
+        model="gpt-3.5-turbo-instruct",
+        # engine="davinci-002",
+        prompt=prompt,
         max_tokens=200
     )
-    return response.choices[0].text.strip()
+    return response.choices[0].text.strip().replace("`", "").strip()
 
 # Prompt per generare la query GraphQL
-prompt = "get the first 5 id, name of the Domains"
+prompt = "Give me the first 3 domains"
 query = generate_graphql_query(prompt)
 
 print("------------------")
@@ -50,9 +56,28 @@ variables = {}
 response = requests.post(url, json={'query': query, 'variables': variables})
 
 # Verifica della risposta
-if response.status_code == 200:
+if not response.status_code == 200:
     data = response.json()
-    print(data)
-else:
     print(f'Errore nella richiesta GraphQL: {response.status_code}')
     print(response.text)
+    exit(1)
+
+
+prompt = f"""
+Translate into human readable terms the following graphql query response:
+```       
+{response.text}
+```
+"""
+
+print(prompt)
+
+f = openai.Completion.create(
+        model="gpt-3.5-turbo-instruct",
+        prompt=prompt,
+        max_tokens=200
+    )
+
+print(f)
+
+print(f.choices[0].text)
