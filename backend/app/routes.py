@@ -221,7 +221,8 @@ ${p}
                 
             # Prompt per generare la query GraphQL
             # prompt = "Give me the first 3 domains"
-            query = generate_graphql_query(prompt)
+            print(prompt.query)
+            query = generate_graphql_query(prompt.query)
 
             print("------------------")
             print(query)
