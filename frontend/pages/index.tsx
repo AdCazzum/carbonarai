@@ -124,7 +124,7 @@ export default function Home() {
               style={{ fontSize: '2em' }}
               repeat={Infinity}
             /></div>
-          <div className="mx-auto flex h-90 w-full max-w-[750px] flex-col items-center px-3 pt-4 sm:pt-8">
+          <div className="mx-auto flex h-90 w-full max-w-6xl flex-col items-center px-3 pt-4 sm:pt-8">
             <div className="relative w-full mt-4">
               <IconSearch className="absolute top-3 w-10 left-1 h-6 rounded-full opacity-50 sm:left-3 sm:top-4 sm:h-8" />
 
