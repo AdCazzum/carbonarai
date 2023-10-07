@@ -13,13 +13,13 @@ Carbonarai is a tool that helps in decision making processes. Through a friendly
 In particular, by using BitTensor and The Graph, extracts information from the blockchain and to provide a natural language interface to query them.
 
 ## DISCORD AND TELEGRAM USER NAME 
-Ivan Sala
+### [Ivan Sala](https://github.com/slavni96)
 
 discord: wonderdnal
 
 tg: wonderdnal
 
-## [Andrea Ciceri](https://github.com/aciceri)
+### [Andrea Ciceri](https://github.com/aciceri)
 discord: aciceri
 
 matrix: @aciceri:nixos.dev
