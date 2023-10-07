@@ -117,12 +117,8 @@ export default function Home() {
                 4000,
                 'Artificial Intelligence for ETHRome2023.',
                 4000,
-                'Artificial Intelligence for Brian.',
-                4000,
                 'Artificial Intelligence for Ethereum.',
-                4000,
-                'Artificial Intelligence for EthereansOS.',
-                2000,
+                2000
               ]}
               speed={50}
               style={{ fontSize: '2em' }}
