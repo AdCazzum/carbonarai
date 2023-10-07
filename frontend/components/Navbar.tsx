@@ -1,4 +1,3 @@
-import { IconExternalLink } from "@tabler/icons-react";
 import { FC } from "react";
 
 export const Navbar: FC = () => {
