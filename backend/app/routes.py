@@ -111,7 +111,11 @@ Do not return anything else than the code needed for the query execution.
 
         #THEGRAPHCALL
         # URL del servizio GraphQL
-        url = f'https://api.thegraph.com/subgraphs/name/ensdomains/ens'
+        if prompt.chatTypeKey == "ENS":
+            url = f'https://api.thegraph.com/subgraphs/name/ensdomains/ens'
+        else:
+            url = 'https://thegraph.azuro.org/subgraphs/name/azuro-protocol/azuro-api-gnosis-v3'
+            
         response = requests.post(url, json={'query': r, 'variables': {}})
 
         print(response.text)

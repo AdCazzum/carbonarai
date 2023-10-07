@@ -22,7 +22,7 @@ export default function Home() {
   const [mode, setMode] = useState<"search" | "answer">("answer");
   const [matchCount, setMatchCount] = useState<number>(5);
 
-  const prompts = ["query the first 3 domains name", "give me a domain list", "give me the first domain name and his metadata"];
+  const prompts = ["query the first 3 domains name", "give me a domain list", "query the first 5 bets"];
 
   const resetQuery = () => {
     setQuery("");
